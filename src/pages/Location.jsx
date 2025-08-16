@@ -1,82 +1,19 @@
+/* eslint-disable react/prop-types */
 import config from "@/config/config";
-import { Clock, Navigation as NavigationIcon, MapPin, CalendarCheck, ExternalLink, Eye, Camera, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Navigation as NavigationIcon, MapPin, CalendarCheck, ExternalLink, Eye, Camera, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { motion } from 'framer-motion';
 import { formatEventDate } from "@/lib/formatEventDate";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { featuredPhotos, galleryPhotos } from '@/config/photos';
 
 export default function Location() {
-    const [hotelImages, setHotelImages] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [isLoadingHotel, setIsLoadingHotel] = useState(true);
+    
+    // 获取酒店相关照片
+    const hotelImages = galleryPhotos.filter(photo => photo.category === 'venue');
 
     // 备用静态地图 (使用OpenStreetMap)
     const osmStaticMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${config.data.amap.center[0]-0.01},${config.data.amap.center[1]-0.01},${config.data.amap.center[0]+0.01},${config.data.amap.center[1]+0.01}&layer=mapnik&marker=${config.data.amap.center[1]},${config.data.amap.center[0]}`;
-
-    // 检测图片是否存在
-    const checkImageExists = (src) => {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = src;
-        });
-    };
-
-    // 动态加载酒店图片
-    const loadHotelImages = async () => {
-        setIsLoadingHotel(true);
-        const images = [];
-        let imageIndex = 1;
-
-        // 检测酒店图片
-        while (true) {
-            const imagePath = `/photos/hotel/image${imageIndex}.jpg`;
-            const exists = await checkImageExists(imagePath);
-
-            if (!exists) {
-                // 尝试其他格式
-                const alternativeFormats = ['png', 'jpeg', 'webp'];
-                let foundAlternative = false;
-
-                for (const format of alternativeFormats) {
-                    const altPath = `/photos/hotel/image${imageIndex}.${format}`;
-                    const altExists = await checkImageExists(altPath);
-                    if (altExists) {
-                        images.push({
-                            id: `hotel-${imageIndex}`,
-                            src: altPath,
-                            alt: `酒店环境 ${imageIndex}`,
-                            title: '酒店环境'
-                        });
-                        foundAlternative = true;
-                        break;
-                    }
-                }
-
-                if (!foundAlternative) {
-                    break;
-                }
-            } else {
-                images.push({
-                    id: `hotel-${imageIndex}`,
-                    src: imagePath,
-                    alt: `酒店环境 ${imageIndex}`,
-                    title: '酒店环境'
-                });
-            }
-
-            imageIndex++;
-            if (imageIndex > 20) break; // 安全限制
-        }
-
-        setHotelImages(images);
-        setIsLoadingHotel(false);
-    };
-
-    // 组件挂载时加载酒店图片
-    useEffect(() => {
-        loadHotelImages();
-    }, []);
 
     // 图片预览模态框
     const ImageModal = ({ image, onClose, onPrev, onNext }) => {
@@ -150,7 +87,60 @@ export default function Location() {
     return (
         <>
             {/* Location section */}
-            <section id="location" className="min-h-screen relative overflow-hidden">
+            <section id="location" className="min-h-screen relative overflow-hidden bg-gradient-to-b from-white via-rose-50/30 to-white">
+                {/* 照片背景装饰 */}
+                <div className="absolute inset-0 z-0">
+                    {/* 左侧酒店照片 */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: -50, scale: 0.9 }}
+                        whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                        transition={{ duration: 1.2 }}
+                        viewport={{ once: true }}
+                        className="absolute left-0 top-1/4 w-1/3 h-1/2 opacity-15"
+                    >
+                        <img 
+                            src={featuredPhotos.location.venue}
+                            alt="婚礼场地"
+                            className="w-full h-full object-cover rounded-r-3xl"
+                        />
+                    </motion.div>
+
+                    {/* 右侧酒店照片 */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: 50, scale: 0.9 }}
+                        whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                        transition={{ duration: 1.2, delay: 0.3 }}
+                        viewport={{ once: true }}
+                        className="absolute right-0 bottom-1/4 w-1/3 h-1/2 opacity-15"
+                    >
+                        <img 
+                            src={featuredPhotos.location.hotel}
+                            alt="酒店环境"
+                            className="w-full h-full object-cover rounded-l-3xl"
+                        />
+                    </motion.div>
+
+                    {/* 装饰性小照片 */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 50, rotate: -5 }}
+                        whileInView={{ opacity: 1, y: 0, rotate: -3 }}
+                        transition={{ duration: 1, delay: 0.6 }}
+                        viewport={{ once: true }}
+                        className="absolute left-12 bottom-16 w-32 h-40 rounded-2xl overflow-hidden shadow-xl border-4 border-white/90"
+                    >
+                        <img 
+                            src={featuredPhotos.gallery.featured}
+                            alt="特色照片"
+                            className="w-full h-full object-cover"
+                        />
+                    </motion.div>
+
+                    {/* 装饰性光晕 */}
+                    <div className="absolute top-20 left-1/4 w-64 h-64 bg-rose-100/20 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-20 right-1/4 w-48 h-48 bg-pink-100/30 rounded-full blur-3xl"></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/30 rounded-full blur-3xl"></div>
+                </div>
+
                 <div className="container mx-auto px-4 py-20 relative z-10">
                     {/* Section Header */}
                     <motion.div
@@ -165,7 +155,7 @@ export default function Location() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
                             viewport={{ once: true }}
-                            className="inline-block text-rose-500 font-medium"
+                            className="inline-block text-rose-500 font-medium bg-white/80 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm"
                         >
                             婚礼地点
                         </motion.span>
@@ -175,7 +165,7 @@ export default function Location() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
                             viewport={{ once: true }}
-                            className="text-4xl md:text-5xl font-serif text-gray-800"
+                            className="text-4xl md:text-5xl font-serif text-gray-800 drop-shadow-sm"
                         >
                             婚礼地点
                         </motion.h2>
@@ -189,7 +179,9 @@ export default function Location() {
                             className="flex items-center justify-center gap-4 pt-4"
                         >
                             <div className="h-[1px] w-12 bg-rose-200" />
-                            <MapPin className="w-5 h-5 text-rose-400" />
+                            <div className="bg-white/80 rounded-full p-2 shadow-sm">
+                                <MapPin className="w-5 h-5 text-rose-400" />
+                            </div>
                             <div className="h-[1px] w-12 bg-rose-200" />
                         </motion.div>
                     </motion.div>
@@ -200,269 +192,126 @@ export default function Location() {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
                             viewport={{ once: true }}
-                            className="w-full h-[400px] rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white"
+                            className="grid md:grid-cols-2 gap-8 mb-12"
                         >
-                            <div className="relative w-full h-full">
-                                {/* OpenStreetMap iframe */}
-                                <iframe
-                                    src={osmStaticMapUrl}
-                                    width="100%"
-                                    height="100%"
-                                    style={{ border: 0 }}
-                                    allowFullScreen=""
-                                    loading="lazy"
-                                    title="婚礼地点地图"
-                                    className="w-full h-full"
-                                />
-                                
-                                {/* Map overlay with location info */}
-                                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-gray-200">
-                                    <div className="flex items-center gap-2">
-                                        <MapPin className="w-4 h-4 text-rose-500" />
-                                        <div>
-                                            <p className="font-medium text-gray-800 text-sm">{config.data.location}</p>
-                                            <p className="text-gray-600 text-xs">{config.data.address}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* View in different maps button */}
-                                <div className="absolute bottom-4 right-4">
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        className="bg-white/95 backdrop-blur-sm rounded-lg p-2 shadow-lg border border-gray-200"
-                                    >
-                                        <p className="text-xs text-gray-500 mb-2 text-center">选择地图App:</p>
-                                        <div className="flex gap-1">
-                                            {/* 高德地图 */}
-                                            <motion.a
-                                                href={config.data.amap.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                className="flex items-center gap-1 bg-green-500 text-white px-2 py-1 rounded text-xs hover:bg-green-600 transition-colors"
-                                                title="高德地图"
-                                            >
-                                                <MapPin className="w-3 h-3" />
-                                                <span>高德</span>
-                                            </motion.a>
-                                            
-                                            {/* 百度地图 */}
-                                            <motion.a
-                                                href={config.data.baidu.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                className="flex items-center gap-1 bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600 transition-colors"
-                                                title="百度地图"
-                                            >
-                                                <MapPin className="w-3 h-3" />
-                                                <span>百度</span>
-                                            </motion.a>
-                                            
-                                            {/* Apple Maps */}
-                                            <motion.a
-                                                href={config.data.apple_maps_url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                className="flex items-center gap-1 bg-gray-600 text-white px-2 py-1 rounded text-xs hover:bg-gray-700 transition-colors"
-                                                title="Apple地图"
-                                            >
-                                                <MapPin className="w-3 h-3" />
-                                                <span>Apple</span>
-                                            </motion.a>
-                                        </div>
-                                    </motion.div>
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        {/* Venue Details */}
-                        <div className="space-y-8">
-                            {/* Main Details */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                                viewport={{ once: true }}
-                                className="w-full"
-                            >
-                                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                                    <h3 className="text-2xl font-serif text-gray-800 mb-6 text-center">婚礼详情</h3>
-
-                                    <div className="space-y-4">
-                                        <div className="flex items-start space-x-4">
-                                            <MapPin className="w-5 h-5 text-rose-500 mt-1" />
-                                            <div>
-                                                <p className="text-gray-800 font-medium">{config.data.location}</p>
-                                                <p className="text-gray-600">{config.data.address}</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex items-center space-x-4">
-                                            <CalendarCheck className="w-5 h-5 text-rose-500" />
-                                            <p className="text-gray-600">{formatEventDate(config.data.date)}</p>
-                                        </div>
-
-                                        <div className="flex items-center space-x-4">
-                                            <Clock className="w-5 h-5 text-rose-500" />
-                                            <p className="text-gray-600">{config.data.time}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* Navigation & Tips */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.4 }}
-                                viewport={{ once: true }}
-                                className="w-full"
-                            >
-                                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                                    <h3 className="text-2xl font-serif text-gray-800 mb-6 text-center">导航指南</h3>
+                            {/* Venue Information */}
+                            <div className="space-y-6">
+                                <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+                                    <h3 className="text-2xl font-serif text-gray-800 mb-4">
+                                        {config.data.location}
+                                    </h3>
                                     
-                                    <div className="space-y-4">
-                                        {/* Navigation Helper */}
-                                        <div className="flex items-start space-x-4">
-                                            <NavigationIcon className="w-5 h-5 text-rose-500 mt-1" />
+                                    <div className="space-y-3 text-gray-600">
+                                        <div className="flex items-start space-x-3">
+                                            <MapPin className="w-5 h-5 text-rose-400 mt-1 flex-shrink-0" />
                                             <div>
-                                                <p className="text-gray-800 font-medium mb-2">导航提示</p>
-                                                <p className="text-gray-600 text-sm">
-                                                    位于池州市贵池区清风路86号，市委对面。<br />
-                                                    建议使用高德地图或百度地图导航，输入&ldquo;葡萄园大酒店&rdquo;即可找到。
-                                                </p>
+                                                <p className="font-medium">{config.data.location}</p>
+                                                <p className="text-sm">{config.data.address}</p>
                                             </div>
                                         </div>
+                                        
+                                        <div className="flex items-center space-x-3">
+                                            <CalendarCheck className="w-5 h-5 text-rose-400 flex-shrink-0" />
+                                            <span className="text-sm">
+                                                {formatEventDate(config.data.date, "full")} · {config.data.time}
+                                            </span>
+                                        </div>
+                                    </div>
 
-                                        {/* Map Services */}
-                                        <div className="flex items-start space-x-4">
-                                            <Eye className="w-5 h-5 text-rose-500 mt-1" />
-                                            <div>
-                                                <p className="text-gray-800 font-medium mb-2">地图服务</p>
-                                                <div className="flex flex-wrap gap-2">
-                                                    <motion.a
-                                                        href={config.data.amap.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        whileHover={{ scale: 1.05 }}
-                                                        whileTap={{ scale: 0.95 }}
-                                                        className="flex items-center gap-1 bg-green-500 text-white px-3 py-1 rounded-full text-xs hover:bg-green-600 transition-colors"
-                                                    >
-                                                        <MapPin className="w-3 h-3" />
-                                                        <span>高德地图导航</span>
-                                                        <ExternalLink className="w-2 h-2" />
-                                                    </motion.a>
-                                                    
-                                                    <motion.a
-                                                        href={config.data.baidu.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        whileHover={{ scale: 1.05 }}
-                                                        whileTap={{ scale: 0.95 }}
-                                                        className="flex items-center gap-1 bg-blue-500 text-white px-3 py-1 rounded-full text-xs hover:bg-blue-600 transition-colors"
-                                                    >
-                                                        <MapPin className="w-3 h-3" />
-                                                        <span>百度地图导航</span>
-                                                        <ExternalLink className="w-2 h-2" />
-                                                    </motion.a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className="flex gap-3 mt-6">
+                                        <a 
+                                            href={config.data.amap.url}
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="flex-1 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
+                                        >
+                                            <NavigationIcon className="w-4 h-4" />
+                                            高德地图
+                                        </a>
+                                        
+                                        <a 
+                                            href={config.data.apple_maps_url}
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="flex-1 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
+                                        >
+                                            <ExternalLink className="w-4 h-4" />
+                                            Apple Maps
+                                        </a>
                                     </div>
                                 </div>
-                            </motion.div>
 
-                            {/* Hotel Environment */}
-                            {(hotelImages.length > 0 || isLoadingHotel) && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.6 }}
-                                    viewport={{ once: true }}
-                                    className="w-full"
-                                >
-                                    <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                                        <h3 className="text-2xl font-serif text-gray-800 mb-6 text-center">酒店环境</h3>
+                                {/* Hotel Images */}
+                                {hotelImages.length > 0 && (
+                                    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+                                        <h4 className="text-lg font-medium text-gray-800 mb-4 flex items-center gap-2">
+                                            <Camera className="w-5 h-5 text-rose-400" />
+                                            场地照片
+                                        </h4>
                                         
-                                        {/* Loading State */}
-                                        {isLoadingHotel && (
-                                            <div className="text-center py-8">
-                                                <div className="animate-spin w-8 h-8 border-2 border-rose-200 border-t-rose-500 rounded-full mx-auto mb-3"></div>
-                                                <p className="text-gray-500 text-sm">正在加载酒店图片...</p>
-                                            </div>
-                                        )}
-
-                                        {/* Hotel Images Grid */}
-                                        {!isLoadingHotel && hotelImages.length > 0 && (
-                                            <div className="space-y-4">
-                                                <div className="flex items-start space-x-4 mb-4">
-                                                    <Camera className="w-5 h-5 text-rose-500 mt-1" />
-                                                    <div>
-                                                        <p className="text-gray-800 font-medium mb-2">环境展示</p>
-                                                        <p className="text-gray-600 text-sm">
-                                                            {config.data.location}为您提供优雅舒适的婚礼环境，点击查看详情。
-                                                        </p>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {hotelImages.map((image, index) => (
+                                                <motion.div
+                                                    key={image.id}
+                                                    initial={{ opacity: 0, scale: 0.9 }}
+                                                    whileInView={{ opacity: 1, scale: 1 }}
+                                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                                    viewport={{ once: true }}
+                                                    className="group relative aspect-[4/3] overflow-hidden rounded-xl cursor-pointer"
+                                                    onClick={() => setSelectedImage(image)}
+                                                >
+                                                    <img
+                                                        src={image.src}
+                                                        alt={image.alt}
+                                                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                                    />
+                                                    
+                                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                                        <Eye className="w-6 h-6 text-white" />
                                                     </div>
-                                                </div>
-
-                                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                                                    {hotelImages.map((image, index) => (
-                                                        <motion.div
-                                                            key={image.id}
-                                                            initial={{ opacity: 0, scale: 0.8 }}
-                                                            animate={{ opacity: 1, scale: 1 }}
-                                                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                                                            className="group relative aspect-square overflow-hidden rounded-lg cursor-pointer bg-gray-100"
-                                                            onClick={() => setSelectedImage(image)}
-                                                        >
-                                                            <img
-                                                                src={image.src}
-                                                                alt={image.alt}
-                                                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                                                                onError={(e) => {
-                                                                    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik02MCA2MEgxNDBWMTQwSDYwVjYwWiIgZmlsbD0iI0Q1RDVES0EiLz4KPHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIwIDEwQzE0LjQ3NzIgMTAgMTAgMTQuNDc3MiAxMCAyMEMxMCAyNS41MjI4IDE0LjQ3NzIgMzAgMjAgMzBDMjUuNTIyOCAzMCAzMCAyNS41MjI4IDMwIDIwQzMwIDE0LjQ3NzIgMjUuNTIyOCAxMCAyMCAxMFpNMjAgMjZDMTcuNzkwOSAyNiAxNiAyNC4yMDkxIDE2IDIyQzE2IDE5Ljc5MDkgMTcuNzkwOSAxOCAyMCAxOEMyMi4yMDkxIDE4IDI0IDE5Ljc5MDkgMjQgMjJDMjQgMjQuMjA5MSAyMi4yMDkxIDI2IDIwIDI2WiIgZmlsbD0iIzY5NzM4MCIvPgo8L3N2Zz4K';
-                                                                }}
-                                                            />
-                                                            
-                                                            {/* Hover Overlay */}
-                                                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                                                                <div className="p-2 text-white">
-                                                                    <p className="text-xs font-medium">查看大图</p>
-                                                                </div>
-                                                            </div>
-                                                        </motion.div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {/* Empty State */}
-                                        {!isLoadingHotel && hotelImages.length === 0 && (
-                                            <div className="text-center py-8">
-                                                <Camera className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                                                <p className="text-gray-500 text-sm">
-                                                    暂无酒店图片，请在 public/photos/hotel/ 文件夹中添加图片
-                                                </p>
-                                            </div>
-                                        )}
+                                                </motion.div>
+                                            ))}
+                                        </div>
                                     </div>
-                                </motion.div>
-                            )}
-                        </div>
+                                )}
+                            </div>
+
+                            {/* Map */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, delay: 0.3 }}
+                                viewport={{ once: true }}
+                                className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl"
+                            >
+                                <h4 className="text-lg font-medium text-gray-800 mb-4 flex items-center gap-2">
+                                    <MapPin className="w-5 h-5 text-rose-400" />
+                                    地图位置
+                                </h4>
+                                
+                                <div className="aspect-[4/3] rounded-xl overflow-hidden border border-gray-200">
+                                    <iframe
+                                        src={osmStaticMapUrl}
+                                        width="100%"
+                                        height="100%"
+                                        frameBorder="0"
+                                        className="w-full h-full"
+                                        title="Wedding Venue Location"
+                                    ></iframe>
+                                </div>
+                                
+                                <p className="text-sm text-gray-500 mt-3 text-center">
+                                    点击上方导航按钮获取详细路线
+                                </p>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* Hotel Image Modal */}
+            {/* Image Modal */}
             {selectedImage && (
                 <ImageModal
                     image={selectedImage}
@@ -472,5 +321,5 @@ export default function Location() {
                 />
             )}
         </>
-    )
+    );
 }

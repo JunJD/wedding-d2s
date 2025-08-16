@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react';
 import { formatEventDate } from '@/lib/formatEventDate';
+import { featuredPhotos } from '@/config/photos';
 
 export default function Wishes() {
     const [showConfetti, setShowConfetti] = useState(false);
@@ -24,30 +25,30 @@ export default function Wishes() {
     const [isOpen, setIsOpen] = useState(false);
 
     const options = [
-        { value: 'ATTENDING', label: 'Ya, saya akan hadir' },
-        { value: 'NOT_ATTENDING', label: 'Tidak, saya tidak bisa hadir' },
-        { value: 'MAYBE', label: 'Mungkin, saya akan konfirmasi nanti' }
+        { value: 'ATTENDING', label: '是的，我会参加' },
+        { value: 'NOT_ATTENDING', label: '很遗憾，我无法参加' },
+        { value: 'MAYBE', label: '可能参加，稍后确认' }
     ];
     // Example wishes - replace with your actual data
     const [wishes, setWishes] = useState([
         {
             id: 1,
-            name: "John Doe",
-            message: "Wishing you both a lifetime of love, laughter, and happiness! 🎉",
+            name: "张三",
+            message: "祝愿你们永远相爱，白头偕老，幸福美满！💕",
             timestamp: "2024-12-24T23:20:00Z",
             attending: "attending"
         },
         {
             id: 2,
-            name: "Natalie",
-            message: "Wishing you both a lifetime of love, laughter, and happiness! 🎉",
+            name: "李美丽",
+            message: "恭喜你们步入婚姻的殿堂，愿你们的爱情之花永远绽放！🌸",
             timestamp: "2024-12-24T23:20:00Z",
             attending: "attending"
         },
         {
             id: 3,
-            name: "Abdur Rofi",
-            message: "Congratulations on your special day! May Allah bless your union! 🤲",
+            name: "王小明",
+            message: "新婚快乐！愿你们携手共度美好人生，幸福甜蜜到永远！🎉",
             timestamp: "2024-12-25T23:08:09Z",
             attending: "maybe"
         }
@@ -63,7 +64,7 @@ export default function Wishes() {
 
         const newWishObj = {
             id: wishes.length + 1,
-            name: "Guest", // Replace with actual user name
+            name: "匿名用户", // Replace with actual user name
             message: newWish,
             attend: "attending",
             timestamp: new Date().toISOString()
@@ -88,7 +89,59 @@ export default function Wishes() {
         }
     };
     return (<>
-        <section id="wishes" className="min-h-screen relative overflow-hidden">
+        <section id="wishes" className="min-h-screen relative overflow-hidden bg-gradient-to-b from-white via-rose-50/30 to-white">
+            {/* 照片背景装饰 */}
+            <div className="absolute inset-0 z-0">
+                {/* 左侧装饰照片 */}
+                <motion.div 
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1 }}
+                    viewport={{ once: true }}
+                    className="absolute left-8 top-20 w-32 h-40 rounded-xl overflow-hidden shadow-lg border-4 border-white/80"
+                >
+                                            <img 
+                            src={featuredPhotos.wishes.left}
+                            alt="复古风格照片"
+                            className="w-full h-full object-cover"
+                        />
+                    </motion.div>
+
+                    {/* 右侧装饰照片 */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 1, delay: 0.3 }}
+                        viewport={{ once: true }}
+                        className="absolute right-8 top-40 w-28 h-36 rounded-xl overflow-hidden shadow-lg border-4 border-white/80"
+                    >
+                        <img 
+                            src={featuredPhotos.wishes.right}
+                            alt="传统风格照片"
+                            className="w-full h-full object-cover"
+                        />
+                    </motion.div>
+
+                    {/* 中间背景照片（淡化处理） */}
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.5, delay: 0.5 }}
+                        viewport={{ once: true }}
+                        className="absolute right-1/4 bottom-20 w-40 h-52 rounded-xl overflow-hidden shadow-lg opacity-20"
+                    >
+                        <img 
+                            src={featuredPhotos.wishes.background}
+                            alt="时尚艺术照片"
+                            className="w-full h-full object-cover"
+                        />
+                </motion.div>
+
+                {/* 装饰性背景光晕 */}
+                <div className="absolute top-32 left-32 w-64 h-64 bg-rose-100/20 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-32 right-32 w-48 h-48 bg-pink-100/30 rounded-full blur-3xl"></div>
+            </div>
+
             {showConfetti && <Confetti recycle={false} numberOfPieces={200} />}
             <div className="container mx-auto px-4 py-20 relative z-10">
                 {/* Section Header */}
@@ -132,8 +185,7 @@ export default function Wishes() {
                 {/* Wishes List */}
                 <div className="max-w-2xl mx-auto space-y-6">
                     <AnimatePresence>
-                        <Marquee speed={20}
-                            gradient={false}
+                        <Marquee 
                             className="[--duration:20s] py-2">
                             {wishes.map((wish, index) => (
                                 <motion.div
@@ -208,11 +260,11 @@ export default function Wishes() {
                                 <div className="space-y-2">
                                     <div className="flex items-center space-x-2 text-gray-500 text-sm mb-1">
                                         <User className="w-4 h-4" />
-                                        <span>Nama Kamu</span>
+                                        <span>您的姓名</span>
                                     </div>
                                     <input
                                         type="text"
-                                        placeholder="Masukan nama kamu..."
+                                        placeholder="请输入您的姓名..."
                                         className="w-full px-4 py-2.5 rounded-xl bg-white/50 border border-rose-100 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50 transition-all duration-200 text-gray-700 placeholder-gray-400"
                                         required
                                     />
@@ -225,7 +277,7 @@ export default function Wishes() {
                                 >
                                     <div className="flex items-center space-x-2 text-gray-500 text-sm mb-1">
                                         <Calendar className="w-4 h-4" />
-                                        <span>Apakah kamu hadir?</span>
+                                        <span>您是否参加婚礼？</span>
                                     </div>
 
                                     {/* Custom Select Button */}
@@ -237,7 +289,7 @@ export default function Wishes() {
                                         <span className={attendance ? 'text-gray-700' : 'text-gray-400'}>
                                             {attendance ?
                                                 options.find(opt => opt.value === attendance)?.label
-                                                : 'Pilih kehadiran...'}
+                                                : '请选择参加情况...'}
                                         </span>
                                         <ChevronDown
                                             className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''
@@ -280,10 +332,10 @@ export default function Wishes() {
                                 <div className="space-y-2">
                                     <div className="flex items-center space-x-2 text-gray-500 text-sm mb-1">
                                         <MessageCircle className="w-4 h-4" />
-                                        <span>Harapan kamu</span>
+                                        <span>您的祝福</span>
                                     </div>
                                     <textarea
-                                        placeholder="Kirimkan harapan dan doa untuk kedua mempelai..."
+                                        placeholder="请为新人送上您的祝福和美好心愿..."
                                         className="w-full h-32 p-4 rounded-xl bg-white/50 border border-rose-100 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50 resize-none transition-all duration-200"
                                         required
                                     />
@@ -292,7 +344,7 @@ export default function Wishes() {
                             <div className="flex items-center justify-between mt-4">
                                 <div className="flex items-center space-x-2 text-gray-500">
                                     <Smile className="w-5 h-5" />
-                                    <span className="text-sm">Berikan Doa Anda</span>
+                                    <span className="text-sm">送上您的祝福</span>
                                 </div>
                                 <motion.button
                                     whileHover={{ scale: 1.02 }}
@@ -303,7 +355,7 @@ export default function Wishes() {
                                             : 'bg-rose-500 hover:bg-rose-600'}`}
                                 >
                                     <Send className="w-4 h-4" />
-                                    <span>{isSubmitting ? 'Sedang Mengirim...' : 'Kirimkan Doa'}</span>
+                                    <span>{isSubmitting ? '发送中...' : '发送祝福'}</span>
                                 </motion.button>
                             </div>
                         </div>
