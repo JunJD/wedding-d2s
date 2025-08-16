@@ -220,22 +220,32 @@ export default function Location() {
                                         </div>
                                     </div>
 
-                                    <div className="flex gap-3 mt-6">
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
                                         <a 
                                             href={config.data.amap.url}
                                             target="_blank" 
                                             rel="noopener noreferrer"
-                                            className="flex-1 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
+                                            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
                                         >
                                             <NavigationIcon className="w-4 h-4" />
                                             高德地图
                                         </a>
                                         
                                         <a 
+                                            href={config.data.baidu.url}
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
+                                        >
+                                            <NavigationIcon className="w-4 h-4" />
+                                            百度地图
+                                        </a>
+                                        
+                                        <a 
                                             href={config.data.apple_maps_url}
                                             target="_blank" 
                                             rel="noopener noreferrer"
-                                            className="flex-1 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
+                                            className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
                                         >
                                             <ExternalLink className="w-4 h-4" />
                                             苹果地图
