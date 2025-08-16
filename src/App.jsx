@@ -57,9 +57,9 @@ function App() {
         <meta property="og:title" content={config.data.title} />
         <meta property="og:description" content={config.data.description} />
         <meta property="og:image" content={`${window.location.origin}${config.data.ogImage}`} />
-        <meta property="og:image:type" content="image/webp" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="720" />
+        <meta property="og:image:height" content="1080" />
         <meta property="og:image:alt" content="丁俊杰 & 邵倩楠的婚礼邀请函" />
         <meta property="og:site_name" content="丁俊杰 & 邵倩楠的婚礼" />
         <meta property="og:locale" content="zh_CN" />
