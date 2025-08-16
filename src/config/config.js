@@ -33,7 +33,7 @@ const config = {
     time: "10:00 - 21:00",
     location: "葡萄园大酒店(清风东路)",
     address: "安徽省池州市贵池区清风路86号(市委对面)",
-    ogImage: "/images/og-image.jpg",
+    ogImage: "/photos/classic/image2.webp",
     favicon: "/images/favicon.ico",
     agenda: [
       {

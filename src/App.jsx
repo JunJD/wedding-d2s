@@ -56,17 +56,106 @@ function App() {
         <meta property="og:url" content={window.location.href} />
         <meta property="og:title" content={config.data.title} />
         <meta property="og:description" content={config.data.description} />
-        <meta property="og:image" content={config.data.ogImage} />
+        <meta property="og:image" content={`${window.location.origin}${config.data.ogImage}`} />
+        <meta property="og:image:type" content="image/webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="丁俊杰 & 邵倩楠的婚礼邀请函" />
+        <meta property="og:site_name" content="丁俊杰 & 邵倩楠的婚礼" />
+        <meta property="og:locale" content="zh_CN" />
+        <meta property="article:author" content="丁俊杰, 邵倩楠" />
+        <meta property="article:published_time" content="2025-10-04T10:00:00+08:00" />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:site" content="@wedding" />
+        <meta property="twitter:creator" content="@wedding" />
         <meta property="twitter:url" content={window.location.href} />
         <meta property="twitter:title" content={config.data.title} />
         <meta property="twitter:description" content={config.data.description} />
-        <meta property="twitter:image" content={config.data.ogImage} />
+        <meta property="twitter:image" content={`${window.location.origin}${config.data.ogImage}`} />
+        <meta property="twitter:image:alt" content="丁俊杰 & 邵倩楠的婚礼邀请函" />
+
+        {/* 微信分享优化 */}
+        <meta name="wechat:card" content="summary_large_image" />
+        <meta name="wechat:title" content={config.data.title} />
+        <meta name="wechat:description" content={config.data.description} />
+        <meta name="wechat:image" content={`${window.location.origin}${config.data.ogImage}`} />
+
+        {/* QQ分享优化 */}
+        <meta name="qq:title" content={config.data.title} />
+        <meta name="qq:description" content={config.data.description} />
+        <meta name="qq:image" content={`${window.location.origin}${config.data.ogImage}`} />
+
+        {/* 微博分享优化 */}
+        <meta name="weibo:title" content={config.data.title} />
+        <meta name="weibo:description" content={config.data.description} />
+        <meta name="weibo:image" content={`${window.location.origin}${config.data.ogImage}`} />
+
+        {/* 钉钉分享优化 */}
+        <meta name="dingtalk:title" content={config.data.title} />
+        <meta name="dingtalk:description" content={config.data.description} />
+        <meta name="dingtalk:image" content={`${window.location.origin}${config.data.ogImage}`} />
 
         {/* Favicon */}
         <link rel="icon" type="image/x-icon" href={config.data.favicon} />
+
+        {/* 结构化数据 - 婚礼事件 */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": config.data.title,
+            "description": config.data.description,
+            "startDate": "2025-10-04T10:00:00+08:00",
+            "endDate": "2025-10-04T21:00:00+08:00",
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "location": {
+              "@type": "Place",
+              "name": config.data.location,
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": config.data.address,
+                "addressLocality": "池州市",
+                "addressRegion": "安徽省",
+                "addressCountry": "CN"
+              }
+            },
+            "image": [`${window.location.origin}${config.data.ogImage}`],
+            "organizer": [
+              {
+                "@type": "Person",
+                "name": config.data.groomName
+              },
+              {
+                "@type": "Person", 
+                "name": config.data.brideName
+              }
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "CNY",
+              "availability": "https://schema.org/InStock",
+              "validFrom": new Date().toISOString()
+            }
+          })}
+        </script>
+
+        {/* 额外的SEO优化标签 */}
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="format-detection" content="telephone=yes, date=yes, email=yes, address=yes" />
+        <meta name="theme-color" content="#f43f5e" />
+        <meta name="msapplication-TileColor" content="#f43f5e" />
+        <meta name="apple-mobile-web-app-title" content="婚礼邀请函" />
+        <meta name="application-name" content="婚礼邀请函" />
+        <meta name="msapplication-tooltip" content={config.data.description} />
+        
+        {/* 婚礼特定关键词 */}
+        <meta name="keywords" content="婚礼,邀请函,丁俊杰,邵倩楠,电子请帖,结婚,婚庆,2025年10月4日,池州婚礼,葡萄园大酒店" />
 
         {/* Additional Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
