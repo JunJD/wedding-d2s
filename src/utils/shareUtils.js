@@ -6,7 +6,7 @@
 // 微信分享配置
 export const setupWeChatShare = () => {
   // 确保页面有正确的分享标签
-  const ensureMetaTag = (property, content, name = null) => {
+  const ensureMetaTag = (property, content) => {
     const selector = property.startsWith('og:') ? `meta[property="${property}"]` : `meta[name="${property}"]`;
     let meta = document.querySelector(selector);
     

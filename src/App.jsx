@@ -51,7 +51,7 @@ function App() {
     setupWeChatShare();
     
     // 开发环境下显示调试信息
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       setTimeout(() => {
         console.log('=== 微信分享调试信息 ===');
         debugWeChatShare();
