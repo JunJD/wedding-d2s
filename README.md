@@ -1,109 +1,108 @@
-# Sakeenah: Modern Islamic Wedding Invitation
+# 婚礼邀请函网站
 
-![Preview](public/preview.png)
+丁俊杰 & 邵倩楠的婚礼邀请函网站
 
-A modern, interactive wedding invitation website built with Vite (React), Tailwind CSS, and Framer Motion. Created by [@mrofisr](https://github.com/mrofisr).
+## ✨ 特性
 
-## Features
-- Modern design & smooth animations
-- Fully responsive & mobile-first layout
-- Background music & interactive wishes (WIP)
-- Fun confetti effects and countdown timer
-- Google Maps integration
+- 📱 响应式设计，支持移动端和桌面端
+- 🎵 背景音乐播放
+- 📍 多地图服务支持（高德地图、百度地图、Apple地图）
+- 💌 在线祝福留言
+- 🎁 礼金信息展示
+- ⏰ 婚礼倒计时
+- 📅 一键添加到日历
 
-## Tech Stack
-- [Vite (React)](https://vite.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [Lucide Icons](https://lucide.dev/)
-- [React Confetti](https://www.npmjs.com/package/react-confetti)
+## 🗺️ 地图服务配置
 
-## Installation
-1. Clone the repository and install dependencies:
-  ```bash
-  git clone https://github.com/mrofisr/wedding-invitation.git
-  cd wedding-invitation
-  bun install
-  ```
-2. Update your wedding details in `src/config.js`.
-3. Start the development server:
-  ```bash
-  bun run dev
-  ```
-  Open [http://localhost:3000](http://localhost:3000) in your browser.
+网站支持多种地图服务，确保国内外用户都能正常访问：
 
-## Customization
-Edit `src/config.js` to change details like the wedding title, names, and colors. For example:
-```JavaScript
-const config = {
-  data: {
-    title: "Pernikahan Fulan & Fulana",
-    description:
-      "Kami akan menikah dan mengundang Anda untuk turut merayakan momen istimewa ini.",
-    groomName: "Fulan",
-    brideName: "Fulana",
-    parentGroom: "Bapak Groom & Ibu Groom",
-    parentBride: "Bapak Bride & Ibu Bride",
-    date: "2024-12-24",
-    maps_url: "https://goo.gl/maps/abcdef",
-    maps_embed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0000000000005!2d106.8270733147699!3d-6.175392995514422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4f1b6d7b1e7%3A0x2e69f4f1b6d7b1e7!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1633666820004!5m2!1sid!2sid",
-    time: "16:16 - 17:30 WIB",
-    location: "Grand Ballroom, Hotel Majesty",
-    address: "Jl. Jend. Sudirman No.1, Jakarta",
-    ogImage: "/images/og-image.jpg",
-    favicon: "/images/favicon.ico",
-    agenda: [
-      {
-        title: "Akad Nikah",
-        date: "2024-12-24",
-        startTime: "16:16",
-        endTime: "17:30",
-        location: "Grand Ballroom, Hotel Majesty",
-        address: "Jl. Jend. Sudirman No.1, Jakarta",
-      },
-      {
-        title: "Resepsi Nikah",
-        date: "2024-12-24",
-        startTime: "16:16",
-        endTime: "17:30",
-        location: "Grand Ballroom, Hotel Majesty",
-        address: "Jl. Jend. Sudirman No.1, Jakarta",
-      }
-    ],
-    audio: {
-      src: "/audio/fulfilling-humming.mp3",
-      title: "Fulfilling Humming",
-      autoplay: true,
-      loop: true
-    },
-    banks: [
-      {
-        bank: "Bank Central Asia",
-        accountNumber: "1234567890",
-        accountName: "FULAN",
-      },
-      {
-        bank: "Bank Mandiri",
-        accountNumber: "0987654321",
-        accountName: "FULANA",
-      }
-    ]
-  }
-};
+### 默认配置
+- **主要推荐**: 高德地图（国内访问稳定、免费）
+- **备选方案**: 百度地图（国内访问稳定、免费）  
+- **国际用户**: Apple地图（全球访问）
 
-export default config;
-
+### 当前地图配置
+```javascript
+// 位置：安徽省池州市贵池区清风路86号(市委对面)
+// 酒店：葡萄园大酒店(清风东路)
+// 坐标：117.494926, 30.671530
 ```
 
-## License
-This project is licensed under the [Apache License 2.0](https://opensource.org/licenses/Apache-2.0). You can use, modify, and distribute it as long as you include the original copyright notice and license.
+### 地图服务优势对比
 
-## Contributing & Support
-Contributions and issue reports are welcome. If this project helped you, give it a ⭐️!
+| 地图服务 | 国内访问 | 免费使用 | 数据准确性 | 推荐指数 |
+|---------|---------|---------|-----------|---------|
+| 高德地图 | ✅ 稳定快速 | ✅ 完全免费 | ⭐⭐⭐⭐⭐ | 🌟🌟🌟🌟🌟 |
+| 百度地图 | ✅ 稳定快速 | ✅ 完全免费 | ⭐⭐⭐⭐⭐ | 🌟🌟🌟🌟⭐ |
+| 谷歌地图 | ❌ 经常无法访问 | ❌ 需要API Key | ⭐⭐⭐⭐⭐ | 🌟🌟⭐⭐⭐ |
+| Apple地图 | ✅ 可访问 | ✅ 免费 | ⭐⭐⭐⭐⭐ | 🌟🌟🌟🌟⭐ |
 
-## Contact
-- GitHub: [@mrofisr](https://github.com/mrofisr)
-- Instagram: [@mrofisr](https://instagram.com/mrofisr)
+## 🚀 快速开始
 
-May Allah guide us all.
+### 安装依赖
+```bash
+npm install
+# 或者
+yarn install
+# 或者
+pnpm install
+```
+
+### 开发
+```bash
+npm run dev
+# 或者
+yarn dev
+# 或者
+pnpm dev
+```
+
+### 构建
+```bash
+npm run build
+# 或者
+yarn build
+# 或者
+pnpm build
+```
+
+## ⚙️ 配置修改
+
+所有配置都在 `src/config/config.js` 文件中：
+
+```javascript
+// 修改新郎新娘信息
+groomName: "您的姓名",
+brideName: "新娘姓名",
+
+// 修改时间
+date: "2025-10-04",
+
+// 修改地点
+location: "您的婚礼地点",
+address: "详细地址",
+
+// 地图服务配置
+mapProvider: "amap", // 可选: "amap", "baidu", "google"
+```
+
+## 📱 功能说明
+
+- **Hero页面**: 主页展示，包含倒计时
+- **Events页面**: 婚礼流程安排
+- **Location页面**: 地点信息和地图导航
+- **Gifts页面**: 礼金信息
+- **Wishes页面**: 在线祝福留言
+
+## 🔧 技术栈
+
+- React 18
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+- React Router DOM
+
+## �� 许可证
+
+MIT License

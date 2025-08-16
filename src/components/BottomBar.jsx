@@ -5,17 +5,17 @@ import {
   Home,
   CalendarHeart,
   MapPin,
-  Gift,
+  Camera,
   MessageCircleHeart
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
 const menuItems = [
-  { icon: Home, label: 'Beranda', href: '#home' },
-  { icon: CalendarHeart, label: 'Event', href: '#event' },
-  { icon: MapPin, label: 'Lokasi', href: '#location' },
-  { icon: Gift, label: 'Hadiah', href: '#gifts' },
-  { icon: MessageCircleHeart, label: 'Harapan', href: '#wishes' },
+  { icon: Home, label: '首页', href: '#home' },
+  { icon: CalendarHeart, label: '流程', href: '#event' },
+  { icon: MapPin, label: '地点', href: '#location' },
+  { icon: Camera, label: '相册', href: '#gallery' },
+  { icon: MessageCircleHeart, label: '祝福', href: '#wishes' },
 ];
 
 /**
