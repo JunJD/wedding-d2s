@@ -15,13 +15,14 @@
  */
 
 // src/App.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Layout from '@/components/Layout';
 import MainContent from '@/pages/MainContent';
 import LandingPage from '@/pages/LandingPage';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import config from '@/config/config';
+import { setupWeChatShare, debugWeChatShare } from '@/utils/shareUtils';
 
 /**
  * App component serves as the root of the application.
@@ -43,6 +44,20 @@ import config from '@/config/config';
  */
 function App() {
   const [isInvitationOpen, setIsInvitationOpen] = useState(false);
+  
+  // 微信分享优化
+  useEffect(() => {
+    // 设置微信分享
+    setupWeChatShare();
+    
+    // 开发环境下显示调试信息
+    if (process.env.NODE_ENV === 'development') {
+      setTimeout(() => {
+        console.log('=== 微信分享调试信息 ===');
+        debugWeChatShare();
+      }, 1000);
+    }
+  }, []);
   return (
     <HelmetProvider>
       <Helmet>
@@ -81,6 +96,10 @@ function App() {
         <meta name="wechat:title" content={config.data.title} />
         <meta name="wechat:description" content={config.data.description} />
         <meta name="wechat:image" content={`${window.location.origin}${config.data.ogImage}`} />
+        
+        {/* 微信分享专用标签 - 更简化的方式 */}
+        <meta property="og:image:secure_url" content={`${window.location.origin}${config.data.ogImage}`} />
+        <meta name="twitter:image:src" content={`${window.location.origin}${config.data.ogImage}`} />
 
         {/* QQ分享优化 */}
         <meta name="qq:title" content={config.data.title} />
