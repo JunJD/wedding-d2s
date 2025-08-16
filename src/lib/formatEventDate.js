@@ -1,14 +1,14 @@
 /**
- * Formats a date string into Indonesian format
- * @param {string} isoString - The ISO date string to format
- * @param {('full'|'short'|'time')} [format='full'] - The format type to use
- * @returns {string} The formatted date string in Indonesian
+ * 将日期字符串格式化为中文格式
+ * @param {string} isoString - 要格式化的ISO日期字符串
+ * @param {('full'|'short'|'time')} [format='full'] - 使用的格式类型
+ * @returns {string} 格式化后的中文日期字符串
  * 
  * @example
- * // returns "Senin, 1 Januari 2024"
+ * // returns "星期一，2024年1月1日"
  * formatEventDate("2024-01-01T00:00:00.000Z", "full")
  * 
- * // returns "1 Januari 2024"
+ * // returns "2024年1月1日"
  * formatEventDate("2024-01-01T00:00:00.000Z", "short")
  * 
  * // returns "00:00"
@@ -17,79 +17,38 @@
 export const formatEventDate = (isoString, format = 'full') => {
     const date = new Date(isoString);
 
-    const formats = {
-        full: {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            timeZone: 'Asia/Jakarta'
-        },
-        short: {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            timeZone: 'Asia/Jakarta'
-        },
-        time: {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false,
-            timeZone: 'Asia/Jakarta'
-        }
-    };
+    // 中文月份名称映射
+    const monthsChinese = [
+        '1月', '2月', '3月', '4月', '5月', '6月',
+        '7月', '8月', '9月', '10月', '11月', '12月'
+    ];
 
-    // Indonesian month names mapping
-    const monthsIndonesian = {
-        'January': 'Januari',
-        'February': 'Februari',
-        'March': 'Maret',
-        'April': 'April',
-        'May': 'Mei',
-        'June': 'Juni',
-        'July': 'Juli',
-        'August': 'Agustus',
-        'September': 'September',
-        'October': 'Oktober',
-        'November': 'November',
-        'December': 'Desember'
-    };
+    // 中文星期名称映射
+    const daysChinese = [
+        '星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'
+    ];
 
-    // Indonesian day names mapping
-    const daysIndonesian = {
-        'Sunday': 'Minggu',
-        'Monday': 'Senin',
-        'Tuesday': 'Selasa',
-        'Wednesday': 'Rabu',
-        'Thursday': 'Kamis',
-        'Friday': 'Jumat',
-        'Saturday': 'Sabtu'
-    };
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    const weekday = date.getDay();
 
-    let formatted = date.toLocaleDateString('en-US', formats[format]);
-
-    // Handle time format separately
+    // 处理时间格式
     if (format === 'time') {
-        return date.toLocaleTimeString('en-US', formats[format]);
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
     }
 
-    // Replace English month and day names with Indonesian ones
-    Object.keys(monthsIndonesian).forEach(english => {
-        formatted = formatted.replace(english, monthsIndonesian[english]);
-    });
+    // 处理短格式
+    if (format === 'short') {
+        return `${year}年${monthsChinese[month]}${day}日`;
+    }
 
-    Object.keys(daysIndonesian).forEach(english => {
-        formatted = formatted.replace(english, daysIndonesian[english]);
-    });
-
-    // Format adjustment for full date
+    // 处理完整格式
     if (format === 'full') {
-        // Convert "Hari, Tanggal Bulan Tahun" format
-        const parts = formatted.split(', ');
-        if (parts.length === 2) {
-            formatted = `${parts[0]}, ${parts[1]}`;
-        }
+        return `${daysChinese[weekday]}，${year}年${monthsChinese[month]}${day}日`;
     }
 
-    return formatted;
+    return `${year}年${monthsChinese[month]}${day}日`;
 };

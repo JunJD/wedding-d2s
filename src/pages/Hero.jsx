@@ -48,6 +48,14 @@ export default function Hero() {
             return () => clearInterval(timer);
         }, [targetDate]);
 
+        // 时间单位中文映射
+        const timeUnitMap = {
+            hari: '天',
+            jam: '时',
+            menit: '分',
+            detik: '秒'
+        };
+
         return (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
                 {Object.keys(timeLeft).map((interval) => (
@@ -60,7 +68,7 @@ export default function Hero() {
                         <span className="text-xl sm:text-2xl font-bold text-rose-600">
                             {timeLeft[interval]}
                         </span>
-                        <span className="text-xs text-gray-500 capitalize">{interval}</span>
+                        <span className="text-xs text-gray-500">{timeUnitMap[interval]}</span>
                     </motion.div>
                 ))}
             </div>
@@ -194,7 +202,7 @@ export default function Hero() {
                         className="inline-block mx-auto"
                     >
                         <span className="px-4 py-1 text-sm bg-white/90 backdrop-blur-sm text-rose-600 rounded-full border border-rose-200 shadow-lg">
-                            Catat Tanggal Penting Ini
+                            请记住这个重要日期
                         </span>
                     </motion.div>
 
@@ -205,7 +213,7 @@ export default function Hero() {
                             transition={{ delay: 0.4 }}
                             className="text-gray-700 font-light italic text-base sm:text-lg drop-shadow-sm"
                         >
-                            InsyaAllah Kami Akan Menikah
+                            我们即将步入婚姻的殿堂
                         </motion.p>
                         <motion.h2
                             initial={{ scale: 0.8, opacity: 0 }}
@@ -270,13 +278,13 @@ export default function Hero() {
                                     className="space-y-2"
                                 >
                                     <p className="text-gray-500 font-serif italic text-sm">
-                                        Kepada Yth.
+                                        敬爱的
                                     </p>
                                     <p className="text-gray-600 font-medium text-sm">
-                                        Bapak/Ibu/Saudara/i
+                                        先生/女士/朋友
                                     </p>
                                     <p className="text-rose-500 font-semibold text-lg">
-                                        {guestName ? guestName : "Tamu"}
+                                        {guestName ? guestName : "尊敬的客人"}
                                     </p>
                                 </motion.div>
                             </div>

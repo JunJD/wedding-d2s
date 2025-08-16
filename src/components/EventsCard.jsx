@@ -1,4 +1,5 @@
 // EventCard.jsx
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -184,19 +185,19 @@ END:VCALENDAR`;
           <div className="space-y-3">
             <CalendarButton
               icon={(props) => <Chrome {...props} className="w-5 h-5 text-rose-500" />}
-              label="Google Calendar"
+              label="谷歌日历"
               onClick={() => window.open(googleCalendarLink(), '_blank')}
             />
 
             <CalendarButton
               icon={(props) => <Apple {...props} className="w-5 h-5 text-gray-900" />}
-              label="Apple Calendar"
+              label="苹果日历"
               onClick={downloadICSFile}
             />
 
             <CalendarButton
               icon={(props) => <CalendarIcon {...props} className="w-5 h-5 text-blue-600" />}
-              label="Outlook Calendar"
+              label="Outlook日历"
               onClick={downloadICSFile}
             />
           </div>

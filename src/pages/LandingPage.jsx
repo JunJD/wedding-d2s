@@ -1,6 +1,7 @@
 // src/pages/LandingPage.jsx
 import config from '@/config/config';
 import { formatEventDate } from '@/lib/formatEventDate';
+/* eslint-disable react/prop-types */
 import { motion } from 'framer-motion';
 import { Calendar, Clock } from 'lucide-react';
 
@@ -86,7 +87,7 @@ const LandingPage = ({ onOpenInvitation }) => (
               className="group relative w-full bg-rose-500 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-xl font-medium shadow-lg hover:bg-rose-600 transition-all duration-200"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
-                <span>Buka Undangan</span>
+                <span>打开请帖</span>
                 <motion.span
                   animate={{ x: [0, 4, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5 }}

@@ -238,7 +238,7 @@ export default function Location() {
                                             className="flex-1 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
                                         >
                                             <ExternalLink className="w-4 h-4" />
-                                            Apple Maps
+                                            苹果地图
                                         </a>
                                     </div>
                                 </div>
@@ -298,7 +298,7 @@ export default function Location() {
                                         height="100%"
                                         frameBorder="0"
                                         className="w-full h-full"
-                                        title="Wedding Venue Location"
+                                        title="婚礼场地位置"
                                     ></iframe>
                                 </div>
                                 

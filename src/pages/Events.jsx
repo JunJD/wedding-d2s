@@ -98,7 +98,7 @@ export default function Events() {
                             transition={{ delay: 0.2 }}
                             className="inline-block text-rose-500 font-medium mb-2 bg-white/80 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm"
                         >
-                            Catat Tanggal Penting Ini
+                            请记住这个重要日期
                         </motion.span>
 
                         <motion.h2
@@ -108,7 +108,7 @@ export default function Events() {
                             transition={{ delay: 0.3 }}
                             className="text-4xl md:text-5xl font-serif text-gray-800 leading-tight drop-shadow-sm"
                         >
-                            Rangkaian Acara Pernikahan
+                            婚礼活动安排
                         </motion.h2>
 
                         <motion.p
@@ -118,7 +118,7 @@ export default function Events() {
                             transition={{ delay: 0.4 }}
                             className="text-gray-600 max-w-md mx-auto bg-white/80 backdrop-blur-sm px-6 py-3 rounded-xl shadow-sm"
                         >
-                            Kami Mengundang Anda untuk Merayakan Hari Istimewa Sebagai Awal Perjalanan Cinta Kami
+                            我们诚挚邀请您参加这个特别的日子，见证我们爱情旅程的开始
                         </motion.p>
 
                         {/* Decorative Line */}

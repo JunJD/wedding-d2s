@@ -40,7 +40,7 @@ export default function Gifts() {
                         transition={{ delay: 0.2 }}
                         className="inline-block text-rose-500 font-medium"
                     >
-                        Hadiah Pernikahan
+                        婚礼礼金
                     </motion.span>
 
                     <motion.h2
@@ -49,7 +49,7 @@ export default function Gifts() {
                         transition={{ delay: 0.3 }}
                         className="text-4xl md:text-5xl font-serif text-gray-800"
                     >
-                        Berikan Hadiah
+                        礼金祝福
                     </motion.h2>
 
                     {/* Decorative Divider */}
@@ -78,7 +78,7 @@ export default function Gifts() {
 
                         {/* Main Message */}
                         <p className="text-gray-600 leading-relaxed">
-                            Insya Allah, Kami Akan Menyalurkan Semua Hadiah yang Diberikan ke Beberapa Masjid dan Lembaga yang Membutuhkan
+                            承蒙厚爱，我们会将收到的所有礼金用于慈善事业，回馈社会
                         </p>
 
                         {/* Arabic Dua */}
@@ -87,7 +87,7 @@ export default function Gifts() {
                                 جزاكم الله خيرا وبارك الله فيكم
                             </p>
                             <p className="text-gray-600 italic text-sm">
-                                Jazakumullahu khairan, Barakallah fiikum
+                                愿真主赐福于你们，恩泽满满
                             </p>
                         </div>
                     </motion.div>
@@ -145,7 +145,7 @@ export default function Gifts() {
                                                 <Copy className="w-4 h-4" />
                                             )}
                                             <span className="text-sm">
-                                                {copiedAccount === account.bank ? 'Copied!' : 'Copy'}
+                                                {copiedAccount === account.bank ? '已复制!' : '复制'}
                                             </span>
                                         </motion.button>
                                     </div>

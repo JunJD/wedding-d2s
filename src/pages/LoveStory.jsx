@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Heart, Calendar, Ring, Church, Sparkles, Clock } from 'lucide-react';
+import { Heart, Calendar, Award, Church, Sparkles, Clock } from 'lucide-react';
 import { featuredPhotos } from '@/config/photos';
 
 export default function LoveStory() {
@@ -33,7 +33,7 @@ export default function LoveStory() {
             title: '领取结婚证',
             subtitle: '法律意义上的结合',
             description: '在我们恋爱五周年的纪念日，我们来到民政局，正式成为法律意义上的夫妻。这一刻，我们的爱情得到了法律的认可和保护，也标志着我们即将踏入人生的新阶段。',
-            icon: Ring,
+            icon: Award,
             color: 'from-emerald-400 to-teal-400',
             bgColor: 'bg-emerald-50',
             image: featuredPhotos.hero.accent
