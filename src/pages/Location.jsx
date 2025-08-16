@@ -100,7 +100,7 @@ export default function Location() {
                     >
                         <img 
                             src={featuredPhotos.location.venue}
-                            alt="婚礼场地"
+                            alt="仪式现场"
                             className="w-full h-full object-cover rounded-r-3xl"
                         />
                     </motion.div>
@@ -115,7 +115,7 @@ export default function Location() {
                     >
                         <img 
                             src={featuredPhotos.location.hotel}
-                            alt="酒店环境"
+                            alt="宴会厅"
                             className="w-full h-full object-cover rounded-l-3xl"
                         />
                     </motion.div>
