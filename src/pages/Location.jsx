@@ -180,7 +180,7 @@ export default function Location() {
                         >
                             <div className="h-[1px] w-12 bg-rose-200" />
                             <div className="bg-white/80 rounded-full p-2 shadow-sm">
-                                <MapPin className="w-5 h-5 text-rose-400" />
+                            <MapPin className="w-5 h-5 text-rose-400" />
                             </div>
                             <div className="h-[1px] w-12 bg-rose-200" />
                         </motion.div>
@@ -211,7 +211,7 @@ export default function Location() {
                                                 <p className="text-sm">{config.data.address}</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex items-center space-x-3">
                                             <CalendarCheck className="w-5 h-5 text-rose-400 flex-shrink-0" />
                                             <span className="text-sm">
@@ -222,9 +222,9 @@ export default function Location() {
 
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
                                         <a 
-                                            href={config.data.amap.url}
-                                            target="_blank" 
-                                            rel="noopener noreferrer"
+                                                        href={config.data.amap.url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
                                             className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
                                         >
                                             <NavigationIcon className="w-4 h-4" />
@@ -232,9 +232,9 @@ export default function Location() {
                                         </a>
                                         
                                         <a 
-                                            href={config.data.baidu.url}
-                                            target="_blank" 
-                                            rel="noopener noreferrer"
+                                                        href={config.data.baidu.url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
                                             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors text-center text-sm font-medium flex items-center justify-center gap-2"
                                         >
                                             <NavigationIcon className="w-4 h-4" />
@@ -262,30 +262,30 @@ export default function Location() {
                                         </h4>
                                         
                                         <div className="grid grid-cols-2 gap-3">
-                                            {hotelImages.map((image, index) => (
-                                                <motion.div
-                                                    key={image.id}
+                                                    {hotelImages.map((image, index) => (
+                                                        <motion.div
+                                                            key={image.id}
                                                     initial={{ opacity: 0, scale: 0.9 }}
                                                     whileInView={{ opacity: 1, scale: 1 }}
-                                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                                            transition={{ duration: 0.5, delay: index * 0.1 }}
                                                     viewport={{ once: true }}
                                                     className="group relative aspect-[4/3] overflow-hidden rounded-xl cursor-pointer"
-                                                    onClick={() => setSelectedImage(image)}
-                                                >
-                                                    <img
-                                                        src={image.src}
-                                                        alt={image.alt}
-                                                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                                            onClick={() => setSelectedImage(image)}
+                                                        >
+                                                            <img
+                                                                src={image.src}
+                                                                alt={image.alt}
+                                                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                                                     />
                                                     
                                                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                                         <Eye className="w-6 h-6 text-white" />
-                                                    </div>
-                                                </motion.div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
+                                                            </div>
+                                                        </motion.div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
                             </div>
 
                             {/* Map */}
@@ -316,7 +316,7 @@ export default function Location() {
                                     点击上方导航按钮获取详细路线
                                 </p>
                             </motion.div>
-                        </motion.div>
+                                </motion.div>
                     </div>
                 </div>
             </section>
